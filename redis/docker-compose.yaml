@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  redis:
+    image: docker.io/library/redis:latest
+    container_name: redis-server
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+  redisinsight:
+    image: docker.io/redis/redisinsight:latest
+    container_name: redis-insight
+    restart: always
+    environment:
+      # Automatically connect to the 'redis' service on start
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
+      - RI_REDIS_ALIAS=redis-server
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight_data:/data
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
+  redisinsight_data:
