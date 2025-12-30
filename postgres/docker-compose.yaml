@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    # Uses the variable from .env, defaults to '14' if not set
+    image: docker.io/library/postgres:${POSTGRES_VERSION:-14}
+    container_name: postgres-db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./mount/pgdata/${POSTGRES_VERSION:-14}:/var/lib/postgresql/data:Z
+
+  pgadmin:
+    image: docker.io/dpage/pgadmin4:latest
+    container_name: pgadmin-panel
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=adminpassword
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    ports:
+      - "15432:80"
+    volumes:
+      - ./mount/pgadmin:/var/lib/pgadmin:Z
+      - ./servers.json:/pgadmin4/servers.json:Z
+    depends_on:
+      - postgres
