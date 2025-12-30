@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: docker.io/library/rabbitmq:${RABBIT_VERSION:-4-management}
+    container_name: rabbitmq
+    hostname: rabbitmq-server
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      # Mounts to a directory named after the version inside 'mount/'
+      - ./mount/${RABBIT_VERSION:-4-management}:/var/lib/rabbitmq:Z
+    restart: always
