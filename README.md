@@ -6,9 +6,14 @@ files.
 
 ## Available Compose Files
 
+- `kafka` - Docker Compose setup for Apache Kafka.
 - `postgres` - Docker Compose setup for PostgreSQL database.
 - `redis` - Docker Compose setup for Redis in-memory data structure store.
 - `rabbitmq` - Docker Compose setup for RabbitMQ message broker.
+
+## Sample Recipe
+
+- `compose-postgres-kafka-redis.yaml` - A sample Docker Compose file that sets up a PostgreSQL database, Kafka message broker, and Redis cache together.
 
 ## LICENSE
 
