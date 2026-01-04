@@ -1,0 +1,16 @@
+services:
+  kafka:
+    extends:
+      file: kafka/docker-compose.yaml
+      service: kafka
+
+  postgres:
+    extends:
+      file: postgres/docker-compose.yaml
+      service: postgres
+
+  redis:
+    extends:
+      file: redis/docker-compose.yaml
+      service: redis
+
